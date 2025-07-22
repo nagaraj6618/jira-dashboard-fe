@@ -1,0 +1,1 @@
+export const prod_be_url = "https://jira-dashboard-be-coral.vercel.app/api/v1"
