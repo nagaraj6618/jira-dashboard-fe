@@ -89,23 +89,53 @@ const OTP = () => {
  };
  
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
+   //  <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white">
 
-      {
-         isLoading && <LoadingFull/>
-      }
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-80 text-center">
+   //    {
+   //       isLoading && <LoadingFull/>
+   //    }
+   //    <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-80 text-center">
+   //      <h2 className="text-xl font-semibold mb-4">OTP Verification</h2>
+   //      <input
+   //        type="text"
+   //        value={otp}
+   //        onChange={handleChange}
+   //        maxLength="6"
+   //        className="w-full p-2 text-center text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+   //        placeholder="Enter OTP"
+   //      />
+   //      <button
+   //        className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md mt-4 disabled:bg-gray-500"
+   //        disabled={otp.length < 6}
+   //        onClick={handleOtpSubmit}
+   //      >
+   //        Submit
+   //      </button>
+   //      <div className="mt-4 text-sm">
+   //        {isResendDisabled ? (
+   //          <span className="text-gray-400">Resend OTP in {timer}s</span>
+   //        ) : (
+   //          <button onClick={handleResend} className="text-blue-400 hover:underline">
+   //            Resend OTP
+   //          </button>
+   //        )}
+   //      </div>
+   //    </div>
+   //  </div>
+    <div className="flex flex-col items-center justify-center h-screen bg-white text-gray-900">
+      {isLoading && <LoadingFull />}
+      <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-lg w-80 text-center">
         <h2 className="text-xl font-semibold mb-4">OTP Verification</h2>
         <input
           type="text"
           value={otp}
           onChange={handleChange}
           maxLength="6"
-          className="w-full p-2 text-center text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 text-center text-gray-800 bg-gray-100 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500"
           placeholder="Enter OTP"
         />
         <button
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md mt-4 disabled:bg-gray-500"
+          className="w-full bg-red-600 hover:bg-red-700 text-white p-2 rounded-md mt-4 disabled:bg-gray-400"
           disabled={otp.length < 6}
           onClick={handleOtpSubmit}
         >
@@ -113,9 +143,9 @@ const OTP = () => {
         </button>
         <div className="mt-4 text-sm">
           {isResendDisabled ? (
-            <span className="text-gray-400">Resend OTP in {timer}s</span>
+            <span className="text-gray-500">Resend OTP in {timer}s</span>
           ) : (
-            <button onClick={handleResend} className="text-blue-400 hover:underline">
+            <button onClick={handleResend} className="text-red-500 hover:underline font-medium">
               Resend OTP
             </button>
           )}
