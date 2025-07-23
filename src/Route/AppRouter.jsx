@@ -8,6 +8,7 @@ import PrivateOTPRoute from './PrivateOTPRoute';
 import OTP from '../Components/Login/OTP';
 import {Navigate} from "react-router-dom"
 import JiraCredComponent from '../Components/JiraCredComponent/JiraCredComponent';
+import { pageRouteData } from '../utils/pageRouteData';
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,14 @@ const AppRouter = () => {
       <Route element={<PrivateRoute/>}>
          <Route path="/home" element={<Dashboard/>}/>
          <Route path="/cred" element={<JiraCredComponent/>}/>
+
+         {pageRouteData.map(({ path, component: Component }, index) => (
+            <Route
+              key={index}
+              path={`/home${path}`}  // e.g., /home/workflows
+              element={<Component />}
+            />
+        ))}
       </Route>
       <Route element={<PublicRoute/>}>
          <Route path='/login' element={<Login/>}/>
