@@ -1,14 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaHistory, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope, FaTrash,FaTimes } from 'react-icons/fa';
+import { FaHistory, FaSignInAlt, FaUserPlus, FaInfoCircle, FaEnvelope, FaTrash,FaTimes,FaHome } from 'react-icons/fa';
 import { useAuth } from '../../Context/AuthContext';
 import { CiLogout } from "react-icons/ci";
 import { RiAccountPinCircleFill } from "react-icons/ri";
-import { PiNotePencilDuotone } from "react-icons/pi";
-import axios from 'axios';
-import { prod_be_url } from '../../utils/config';
-import { showErrorToast } from '../ToastMessage/ToastMessageComponent';
-import { BsRobot } from "react-icons/bs";
 
 const NavbarComponent = ({ closeSidebar,isSidebarOpen }) => {
   const { logout, isAuthenticated } = useAuth();
@@ -34,27 +29,27 @@ const NavbarComponent = ({ closeSidebar,isSidebarOpen }) => {
         <ul className="space-y-2">
           {!isAuthenticated ? (<><li>
             <Link
-              to="/signin"
+              to="/login"
               className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-700 text-sm md:text-sm sm:text-xs"
               onClick={closeSidebar}
             >
               <FaSignInAlt /> Login
             </Link>
           </li>
-            <li>
-              <Link
-                to="/signup"
-                className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-700 text-sm md:text-sm sm:text-xs"
-                onClick={closeSidebar}
-              >
-                <FaUserPlus /> Register
-              </Link>
-            </li>
+           
           </>) :
             (
               <>
+              <li>
+                  <Link to="/home"
+                    className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-700 text-base md:text-sm sm:text-xs"
+                    
+                  >
+                    <FaHome /> Home
+                  </Link>
+                </li>
                 <li>
-                  <Link to="/signin"
+                  <Link to="/login"
                     className="flex items-center gap-2 p-2 rounded-md transition hover:bg-gray-700 text-base md:text-sm sm:text-xs"
                     onClick={handleLogout}
                   >

@@ -5,19 +5,23 @@ import ScreenSchemes from '../Components/JiraDataComponent/ScreenSchemes'
 export const pageRouteData = [
    {
       path : '/workflows',
-      component : WrokFlowComponent
+      component : WrokFlowComponent,
+      name: "Workflow"
    },
    {
       path : '/workflow-schemes',
-      component : WorkFLowScreens
+      component : WorkFLowScreens,
+      name : "Workflow Schemes"
    },
    {
       path : "/screens",
-      component: ScreensComponent
+      component: ScreensComponent,
+      name : "Screens"
    },
    {
       path : "/screen-schemes",
-      component: ScreenSchemes
+      component: ScreenSchemes,
+      name : "Screen Schemes"
    },
 
 ]
