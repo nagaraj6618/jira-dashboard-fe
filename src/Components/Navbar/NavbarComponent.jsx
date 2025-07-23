@@ -10,7 +10,7 @@ import { prod_be_url } from '../../utils/config';
 import { showErrorToast } from '../ToastMessage/ToastMessageComponent';
 import { BsRobot } from "react-icons/bs";
 
-const NavbarComponent = ({ closeSidebar }) => {
+const NavbarComponent = ({ closeSidebar,isSidebarOpen }) => {
   const { logout, isAuthenticated } = useAuth();
   const handleLogout = () => {
     logout();
@@ -20,13 +20,13 @@ const NavbarComponent = ({ closeSidebar }) => {
     <nav className="flex flex-col min-h-full w-full text-white z-40">
 
       <div className="flex justify-end mb-4">
-        <button
+        {isSidebarOpen && <button
           onClick={closeSidebar}
           className="text-white hover:text-red-400 transition duration-200 text-xl"
           title="Close"
         >
           <FaTimes />
-        </button>
+        </button>}
       </div>
       {/* Navigation Links */}
       <div className="mt-auto">

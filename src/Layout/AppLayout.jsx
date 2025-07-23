@@ -42,7 +42,7 @@ const AppLayout = () => {
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } md:translate-x-0 bg-gray-800 bg-opacity-60 backdrop-blur-lg text-white p-4 transition-transform duration-300 ease-in-out shadow-lg`}
       >
-        <NavbarComponent closeSidebar={closeSidebar} />
+        <NavbarComponent closeSidebar={closeSidebar} isSidebarOpen={isSidebarOpen} />
       </div>
 
       {/* Main content */}
