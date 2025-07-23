@@ -7,6 +7,7 @@ import Login from '../Components/Login/Login';
 import PrivateOTPRoute from './PrivateOTPRoute';
 import OTP from '../Components/Login/OTP';
 import {Navigate} from "react-router-dom"
+import JiraCredComponent from '../Components/JiraCredComponent/JiraCredComponent';
 
 const AppRouter = () => {
   return (
@@ -14,6 +15,7 @@ const AppRouter = () => {
 
       <Route element={<PrivateRoute/>}>
          <Route path="/home" element={<Dashboard/>}/>
+         <Route path="/cred" element={<JiraCredComponent/>}/>
       </Route>
       <Route element={<PublicRoute/>}>
          <Route path='/login' element={<Login/>}/>
