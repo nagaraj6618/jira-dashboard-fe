@@ -9,7 +9,7 @@ const Priorities = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem('priorities');
+    const cached = localStorage.getItem('prioritiesCache');
     if (cached) {
       setPriorities(JSON.parse(cached));
       setLoading(false);
@@ -30,7 +30,7 @@ const Priorities = () => {
       if (res.data?.success) {
         const data = res.data.data || [];
         setPriorities(data);
-        localStorage.setItem('priorities', JSON.stringify(data));
+        localStorage.setItem('prioritiesCache', JSON.stringify(data));
       } else {
         showErrorToast(res.data.message || 'Failed to fetch priorities');
       }

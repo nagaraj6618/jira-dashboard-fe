@@ -9,7 +9,7 @@ const FieldConfiguration = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem('fieldConfigs');
+    const cached = localStorage.getItem('fieldConfigsCache');
     if (cached) {
       setConfigs(JSON.parse(cached));
       setLoading(false);
@@ -32,7 +32,7 @@ const FieldConfiguration = () => {
       if (res.data?.success) {
         const data = res.data.data || [];
         setConfigs(data);
-        localStorage.setItem('fieldConfigs', JSON.stringify(data));
+        localStorage.setItem('fieldConfigsCache', JSON.stringify(data));
       } else {
         showErrorToast(res.data.message || 'Failed to fetch field configurations');
       }

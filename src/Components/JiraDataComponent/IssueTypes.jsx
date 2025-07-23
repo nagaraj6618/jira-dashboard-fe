@@ -9,7 +9,7 @@ const IssueTypes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem('issueTypes');
+    const cached = localStorage.getItem('issueTypesCache');
     if (cached) {
       setIssueTypes(JSON.parse(cached));
       setLoading(false);
@@ -29,7 +29,7 @@ const IssueTypes = () => {
 
       if (res.data?.success) {
         setIssueTypes(res.data.data || []);
-        localStorage.setItem('issueTypes', JSON.stringify(res.data.data || []));
+        localStorage.setItem('issueTypesCache', JSON.stringify(res.data.data || []));
       } else {
         showErrorToast(res.data.message || 'Failed to fetch issue types');
       }

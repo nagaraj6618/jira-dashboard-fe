@@ -7,7 +7,7 @@ const CustomField = () => {
    const [error, setError] = useState(null);
 
    useEffect(() => {
-      const cachedData = localStorage.getItem('customFields');
+      const cachedData = localStorage.getItem('customFieldsCache');
       if (cachedData) {
          setFields(JSON.parse(cachedData));
       }
@@ -26,7 +26,7 @@ const CustomField = () => {
 
          if (res.data?.success) {
             setFields(res.data.data);
-            localStorage.setItem('customFields', JSON.stringify(res.data.data));
+            localStorage.setItem('customFieldsCache', JSON.stringify(res.data.data));
          } else {
             setError(res.data.message || 'Failed to fetch data');
          }

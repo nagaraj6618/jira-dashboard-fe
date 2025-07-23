@@ -11,6 +11,16 @@ import IssueTypes from '../Components/JiraDataComponent/IssueTypes'
 import FieldConfiguration from '../Components/JiraDataComponent/FieldConfiguration'
 import FieldConfigurationSchemes from '../Components/JiraDataComponent/FieldConfigurationSchemes'
 import Priorities from '../Components/JiraDataComponent/Priorities'
+import Statuses from '../Components/JiraDataComponent/Statuses'
+import Resolution from '../Components/JiraDataComponent/Resolution'
+import IssueSecuritySchemes from '../Components/JiraDataComponent/IssueSecuritySchemes'
+import Projects from '../Components/JiraDataComponent/Projects'
+import IssueLinkTypes from '../Components/JiraDataComponent/IssueLinkTypes'
+import Filter from '../Components/JiraDataComponent/Filter'
+import Boards from '../Components/JiraDataComponent/Boards'
+import DashBoradComponent from '../Components/JiraDataComponent/DashBoradComponent'
+import Groups from '../Components/JiraDataComponent/Groups'
+import Users from '../Components/JiraDataComponent/Users'
 export const pageRouteData = [
    {
       path : '/workflows',
@@ -77,12 +87,85 @@ export const pageRouteData = [
       component:Priorities,
       name : "Priorities Page"
    },
-
+   {
+      path : '/statuses',
+      component:Statuses,
+      name : "Statuses Page"
+   },
+   {
+      path : '/resolutions',
+      component:Resolution,
+      name : "Resolutions Page"
+   },
+   {
+      path : '/issue-security-schemes',
+      component:IssueSecuritySchemes,
+      name : "Issues Security Schemes"
+   },
+   {
+      path : '/projects',
+      component:Projects,
+      name : "Projects"
+   },
+   {
+      path : '/issue-link-types',
+      component: IssueLinkTypes,
+      name : "Issue Link Types"
+   },
+   {
+      path : '/filters',
+      component: Filter,
+      name : "Filters"
+   },
+   {
+      path : '/boards',
+      component: Boards,
+      name : "Borads"
+   },
+   {
+      path : '/dashboards',
+      component: DashBoradComponent,
+      name : "Dashboard"
+   },
+   {
+      path : '/groups',
+      component: Groups,
+      name : "Groups"
+   },
+   {
+      path : '/users',
+      component: Users,
+      name : "Users"
+   },
 ]
 
 export const deleteJiraCache = () => {
-   localStorage.removeItem("cached_workflows");
-   localStorage.removeItem("cached_workflow_screens");
-   localStorage.removeItem("jira_screen_schemes_cache");
-   localStorage.removeItem("jira_screens_cache");
-}
+  const keysToRemove = [
+    'cached_workflows',
+    'cached_workflow_screens',
+    'jira_screen_schemes_cache',
+    'jira_screens_cache',
+    'usersChache',
+    'statusesCache',
+    'resolutionsCache',
+    'projectsCache',
+    'prioritySchemesCache',
+    'prioritiesCache',
+    'permissionSchemescache',
+    'notificationSchemescache',
+    'issueTypeScreenSchemesCache',
+    'issueTypesCache',
+    'issue-security-schemes',
+    'issue-link-types',
+    'groupsCache',
+    'filtersCache',
+    'fieldConfigurationSchemes',
+    'fieldConfigsCache',
+    'dashboardsCache',
+    'customFieldsCache',
+    'boardsCache',
+
+  ];
+
+  keysToRemove.forEach(key => localStorage.removeItem(key));
+};

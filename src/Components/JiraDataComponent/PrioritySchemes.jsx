@@ -9,7 +9,7 @@ const PrioritySchemes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem('prioritySchemes');
+    const cached = localStorage.getItem('prioritySchemesCache');
     if (cached) {
       setPriorities(JSON.parse(cached));
       setLoading(false);
@@ -29,7 +29,7 @@ const PrioritySchemes = () => {
 
       if (res.data?.success) {
         setPriorities(res.data.data || []);
-        localStorage.setItem('prioritySchemes', JSON.stringify(res.data.data || []));
+        localStorage.setItem('prioritySchemesCache', JSON.stringify(res.data.data || []));
       } else {
         showErrorToast(res.data.message || 'Failed to fetch priority schemes');
       }

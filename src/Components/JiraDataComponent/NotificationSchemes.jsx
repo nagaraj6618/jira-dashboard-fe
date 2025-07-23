@@ -10,6 +10,11 @@ const NotificationSchemes = () => {
    const [loading, setLoading] = useState(false); // 👈 loading state
 
    useEffect(() => {
+      const cached = localStorage.getItem('notificationSchemescache');
+    if (cached) {
+      setSchemes(JSON.parse(cached));
+      setLoading(false);
+    }
       fetchNotificationSchemes();
    }, []);
 
@@ -25,7 +30,7 @@ const NotificationSchemes = () => {
 
          if (res.data?.success) {
             setSchemes(res.data.data.data);
-            localStorage.setItem('notificationSchemes', JSON.stringify(res.data.data.data));
+            localStorage.setItem('notificationSchemescache', JSON.stringify(res.data.data.data));
          } else {
             setError(res.data.message || 'Failed to fetch data');
             showErrorToast(res.data.message || 'Failed to fetch data');

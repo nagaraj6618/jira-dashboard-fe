@@ -9,7 +9,7 @@ const IssueTypeScreenSchemes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cached = localStorage.getItem('issueTypeScreenSchemes');
+    const cached = localStorage.getItem('issueTypeScreenSchemesCache');
     if (cached) {
       setSchemes(JSON.parse(cached));
       setLoading(false);
@@ -29,7 +29,7 @@ const IssueTypeScreenSchemes = () => {
 
       if (res.data?.success) {
         setSchemes(res.data.data || []);
-        localStorage.setItem('issueTypeScreenSchemes', JSON.stringify(res.data.data || []));
+        localStorage.setItem('issueTypeScreenSchemesCache', JSON.stringify(res.data.data || []));
       } else {
         showErrorToast(res.data.message || 'Failed to fetch issue type screen schemes');
       }
