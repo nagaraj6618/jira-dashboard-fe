@@ -82,7 +82,7 @@ const JiraCredComponent = () => {
          fetchJiraData();
          const jiraId = responseData?.data?.jiraId
          setCurrentUseCred(jiraId)
-         const user = JSON.parse(localStorage.getItem("user"))||{};
+         const user = JSON.parse(localStorage.getItem("user")|| "")||{};
          user.jiraTokenId = jiraId
          localStorage.setItem('user',JSON.stringify(user));
          setEditTokenId(null);
@@ -126,7 +126,7 @@ const JiraCredComponent = () => {
       try {
 
 
-         await axios.post(`${prod_be_url}/jira/operation`, {
+         const responseData = await axios.post(`${prod_be_url}/jira/operation`, {
             userEmail,
             token: newCred.token,
             jiraEmail: newCred.email,
@@ -136,6 +136,11 @@ const JiraCredComponent = () => {
                Authorization: `Bearer ${authToken}`
             }
          });
+         const jiraId = responseData?.data?.jiraId
+         setCurrentUseCred(jiraId)
+         const user = JSON.parse(localStorage.getItem("user") || "")||{};
+         user.jiraTokenId = jiraId
+         localStorage.setItem('user',JSON.stringify(user));
 
          showSuccessToast("Jira credential added successfully.");
          // setJiraData(prev => [...prev, response.data.data]); // assuming new credential returned in response.data.data
