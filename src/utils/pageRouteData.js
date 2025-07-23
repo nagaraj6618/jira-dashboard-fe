@@ -10,6 +10,7 @@ import IssueTypeScreenSchemes from '../Components/JiraDataComponent/IssueTypeScr
 import IssueTypes from '../Components/JiraDataComponent/IssueTypes'
 import FieldConfiguration from '../Components/JiraDataComponent/FieldConfiguration'
 import FieldConfigurationSchemes from '../Components/JiraDataComponent/FieldConfigurationSchemes'
+import Priorities from '../Components/JiraDataComponent/Priorities'
 export const pageRouteData = [
    {
       path : '/workflows',
@@ -70,7 +71,12 @@ export const pageRouteData = [
       path : '/field-configuration-schemes',
       component:FieldConfigurationSchemes,
       name : "Field Configuration Schemes"
-   }
+   },
+   {
+      path : '/priorities',
+      component:Priorities,
+      name : "Priorities Page"
+   },
 
 ]
 

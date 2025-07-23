@@ -36,7 +36,7 @@ const IssueTypeScreenSchemes = () => {
     } catch (error) {
       showErrorToast('An error occurred while fetching issue type screen schemes');
     } finally {
-      if (!localStorage.getItem('issueTypeScreenSchemes')) setLoading(false);
+       setLoading(false);
     }
   };
 

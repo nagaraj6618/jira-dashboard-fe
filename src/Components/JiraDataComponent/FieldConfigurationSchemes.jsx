@@ -37,14 +37,15 @@ const FieldConfigurationSchemes = () => {
     } catch (err) {
       showErrorToast('An error occurred while fetching field configuration schemes');
     } finally {
-      if (!localStorage.getItem('fieldConfigurationSchemes')) setLoading(false);
+       setLoading(false);
     }
   };
 
-  if (loading) return <LoadingFull />;
+//   if (loading) return <LoadingFull />;
 
   return (
     <div className="p-8 text-black bg-gray-50 min-h-screen">
+       {loading && <LoadingFull />} {/* Always show loader if fetching */}
       <h2 className="text-3xl font-extrabold mb-6 border-b pb-2 border-gray-300 bg-gradient-to-r from-purple-600 to-pink-600 text-white inline-block px-4 py-2 rounded">
         Field Configuration Schemes
       </h2>

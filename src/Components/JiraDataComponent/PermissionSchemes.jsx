@@ -7,8 +7,14 @@ import LoadingFull from '../Loading/LoadingFull';
 const PermissionSchemes = () => {
   const [schemes, setSchemes] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
+   const cached = localStorage.getItem('permissionSchemescache');
+    if (cached) {
+      setSchemes(JSON.parse(cached)||[]);
+      setLoading(false);
+    }
     fetchPermissionSchemes();
   }, []);
 
@@ -23,6 +29,7 @@ const PermissionSchemes = () => {
 
       if (res.data?.success) {
         setSchemes(res.data.data?.data || []);
+        localStorage.setItem('permissionSchemescache', JSON.stringify(res.data.data?.data || []));
       } else {
         showErrorToast(res.data.message || "Failed to fetch permission schemes");
       }
