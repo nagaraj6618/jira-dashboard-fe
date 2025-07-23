@@ -31,7 +31,7 @@ const Login = () => {
       if(responseData?.success){
         showInfoToast("Please Complete the TFA.");
         localStorage.setItem("userEmail",email);
-        localStorage.setItem("user",JSON.stringify(responseData?.data));
+        // localStorage.setItem("user",JSON.stringify(responseData?.data));
         login();
       }
       setIsLoading(false);

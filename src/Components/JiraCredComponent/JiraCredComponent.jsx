@@ -6,8 +6,11 @@ import { showErrorToast, showSuccessToast } from '../ToastMessage/ToastMessageCo
 import { IoIosEye, IoIosEyeOff } from 'react-icons/io';
 import { FaRegCopy, FaSave } from 'react-icons/fa';
 import { MdEdit, MdCancel, MdDelete } from "react-icons/md";
+import { deleteJiraCache } from '../../utils/pageRouteData';
 
 const JiraCredComponent = () => {
+   const userData = JSON.parse(localStorage.getItem("user")) || {}
+   const [currentUseCred,setCurrentUseCred] = useState(userData?.jiraTokenId || "");
    const [jiraData, setJiraData] = useState([]);
    const [isLoading, setIsLoading] = useState(false);
    const [visibleTokens, setVisibleTokens] = useState({});
@@ -21,9 +24,7 @@ const JiraCredComponent = () => {
    });
 
    const [showAddForm, setShowAddForm] = useState(false);
-
-   useEffect(() => {
-      const fetchJiraData = async () => {
+   const fetchJiraData = async () => {
          setIsLoading(true);
          try {
             const token = localStorage.getItem("token");
@@ -39,7 +40,7 @@ const JiraCredComponent = () => {
          }
          setIsLoading(false);
       };
-
+   useEffect(() => {
       fetchJiraData();
    }, []);
 
@@ -62,8 +63,8 @@ const JiraCredComponent = () => {
       try {
          const userEmail = localStorage.getItem('userEmail');
          const userToken = localStorage.getItem("token");
-         await axios.post(`${prod_be_url}/jira/operation`, {
-            token: editedToken,
+         const responseData = await axios.post(`${prod_be_url}/jira/operation`, {
+            token: editedToken || cred.token,
             userEmail,
             jiraEmail: cred.email,
             baseUrl: cred.baseUrl
@@ -78,10 +79,18 @@ const JiraCredComponent = () => {
                item._id === cred._id ? { ...item, token: editedToken } : item
             )
          );
+         fetchJiraData();
+         const jiraId = responseData?.data?.jiraId
+         setCurrentUseCred(jiraId)
+         const user = JSON.parse(localStorage.getItem("user"))||{};
+         user.jiraTokenId = jiraId
+         localStorage.setItem('user',JSON.stringify(user));
          setEditTokenId(null);
+         deleteJiraCache();
       } catch (error) {
          console.log(error);
          showErrorToast("Failed to update token");
+         deleteJiraCache();
       }
    };
 
@@ -191,7 +200,7 @@ const JiraCredComponent = () => {
             </div>
          )}
 
-         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+         {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             {jiraData.length > 0 && jiraData.map((cred) => (
                <div
                   key={cred._id}
@@ -251,7 +260,170 @@ const JiraCredComponent = () => {
                   </div>
                </div>
             ))}
+         </div> */}
+
+         {/* <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+   {jiraData.length > 0 && jiraData.map((cred) => {
+      const isCurrent = cred._id === currentUseCred;
+
+      return (
+         <div
+            key={cred._id}
+            className={`bg-white rounded-xl shadow p-5 flex flex-col justify-between border-2 ${
+               isCurrent ? 'border-green-500' : 'border-red-300'
+            }`}
+         >
+            <div className="flex justify-between items-start mb-2">
+               <h2 className="text-lg font-semibold text-red-500 flex items-center gap-2">
+                  Jira Credential
+                  {isCurrent && (
+                     <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
+                        Using
+                     </span>
+                  )}
+               </h2>
+               <button onClick={() => handleDelete(cred._id)} className="text-red-700 hover:text-red-900">
+                  <MdDelete size={18} />
+               </button>
+            </div>
+
+            <div className="text-sm space-y-2 break-words text-gray-800 sm:text-sm">
+               <div><strong>Email:</strong> {cred.email}</div>
+               <div><strong>Base URL:</strong> {cred.baseUrl}</div>
+
+               <div>
+                  <strong>Token:</strong>
+                  <div className="flex items-center justify-between mt-1 bg-gray-100 p-2 rounded-md">
+                     {editTokenId === cred._id ? (
+                        <>
+                           <input
+                              type="text"
+                              value={editedToken}
+                              onChange={(e) => setEditedToken(e.target.value)}
+                              className="w-[70%] p-1 text-sm text-black rounded-md focus:outline-none"
+                           />
+                           <button onClick={() => handleTokenSave(cred)} className="text-green-600 hover:text-green-800 ml-2">
+                              <FaSave size={16} />
+                           </button>
+                           <button onClick={() => setEditTokenId(null)} className="text-red-500 hover:text-gray-800">
+                              <MdCancel size={18} />
+                           </button>
+                        </>
+                     ) : (
+                        <>
+                           <span className="truncate w-[70%]">
+                              {visibleTokens[cred._id] ? cred.token : '••••••••••••••••••••••••••'}
+                           </span>
+                           <div className="flex items-center gap-2">
+                              <button onClick={() => toggleTokenVisibility(cred._id)} className="text-red-600 hover:text-red-800">
+                                 {visibleTokens[cred._id] ? <IoIosEyeOff size={18} /> : <IoIosEye size={18} />}
+                              </button>
+                              <button onClick={() => handleCopy(cred.token)} className="text-red-600 hover:text-red-800">
+                                 <FaRegCopy size={16} />
+                              </button>
+                              <button onClick={() => handleEditClick(cred)} className="text-blue-600 hover:text-blue-800">
+                                 <MdEdit size={18} />
+                              </button>
+                           </div>
+                        </>
+                     )}
+                  </div>
+               </div>
+
+               <div><strong>Created:</strong> {new Date(cred.createdAt).toLocaleString()}</div>
+            </div>
          </div>
+      );
+   })}
+</div> */}
+
+
+<div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+   {jiraData.length > 0 &&
+      jiraData.map((cred) => {
+         const isCurrent = cred._id === currentUseCred;
+
+         return (
+            <div
+               key={cred._id}
+               className={`bg-white rounded-xl shadow p-5 flex flex-col justify-between border-2 ${
+                  isCurrent ? 'border-green-500' : 'border-red-300'
+               }`}
+            >
+               <div className="flex justify-between items-start mb-2">
+                  <h2 className="text-lg font-semibold text-red-500 flex items-center gap-2">
+                     Jira Credential
+                     {isCurrent && (
+                        <span className="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
+                           Using
+                        </span>
+                     )}
+                  </h2>
+                  <button onClick={() => handleDelete(cred._id)} className="text-red-700 hover:text-red-900">
+                     <MdDelete size={18} />
+                  </button>
+               </div>
+
+               <div className="text-sm space-y-2 break-words text-gray-800 sm:text-sm">
+                  <div><strong>Email:</strong> {cred.email}</div>
+                  <div><strong>Base URL:</strong> {cred.baseUrl}</div>
+
+                  <div>
+                     <strong>Token:</strong>
+                     <div className="flex items-center justify-between mt-1 bg-gray-100 p-2 rounded-md">
+                        {editTokenId === cred._id ? (
+                           <>
+                              <input
+                                 type="text"
+                                 value={editedToken}
+                                 onChange={(e) => setEditedToken(e.target.value)}
+                                 className="w-[70%] p-1 text-sm text-black rounded-md focus:outline-none"
+                              />
+                              <button onClick={() => handleTokenSave(cred)} className="text-green-600 hover:text-green-800 ml-2">
+                                 <FaSave size={16} />
+                              </button>
+                              <button onClick={() => setEditTokenId(null)} className="text-red-500 hover:text-gray-800">
+                                 <MdCancel size={18} />
+                              </button>
+                           </>
+                        ) : (
+                           <>
+                              <span className="truncate w-[70%]">
+                                 {visibleTokens[cred._id] ? cred.token : '••••••••••••••••••••••••••'}
+                              </span>
+                              <div className="flex items-center gap-2">
+                                 <button onClick={() => toggleTokenVisibility(cred._id)} className="text-red-600 hover:text-red-800">
+                                    {visibleTokens[cred._id] ? <IoIosEyeOff size={18} /> : <IoIosEye size={18} />}
+                                 </button>
+                                 <button onClick={() => handleCopy(cred.token)} className="text-red-600 hover:text-red-800">
+                                    <FaRegCopy size={16} />
+                                 </button>
+                                 <button onClick={() => handleEditClick(cred)} className="text-blue-600 hover:text-blue-800">
+                                    <MdEdit size={18} />
+                                 </button>
+                              </div>
+                           </>
+                        )}
+                     </div>
+                  </div>
+
+                  <div><strong>Created:</strong> {new Date(cred.createdAt).toLocaleString()}</div>
+               </div>
+
+               {/* ✅ Use Me Button */}
+               {!isCurrent && (
+                  <button
+                     className="mt-4 bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600 transition duration-150"
+                     onClick={() => handleTokenSave(cred)}
+                  >
+                     Use Me
+                  </button>
+               )}
+            </div>
+         );
+      })}
+</div>
+
       </div>
    );
 };

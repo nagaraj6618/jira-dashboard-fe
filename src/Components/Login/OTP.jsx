@@ -63,6 +63,9 @@ const OTP = () => {
        console.log("OTP Verified", response.data);
  
        localStorage.setItem("token", response.data?.token);
+       const user = response.data?.user || [];
+       console.log(user);
+       localStorage.setItem("user",JSON.stringify(user));
  
        verifyOtp();
        console.log("Authentication updated");

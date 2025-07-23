@@ -25,3 +25,10 @@ export const pageRouteData = [
    },
 
 ]
+
+export const deleteJiraCache = () => {
+   localStorage.removeItem("cached_workflows");
+   localStorage.removeItem("cached_workflow_screens");
+   localStorage.removeItem("jira_screen_schemes_cache");
+   localStorage.removeItem("jira_screens_cache");
+}
