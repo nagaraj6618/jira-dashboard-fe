@@ -66,7 +66,7 @@ const FieldConfiguration = () => {
             </tr>
           </thead>
           <tbody className="text-sm text-black divide-y divide-gray-200">
-            {configs.map((item, index) => (
+            {configs.slice(0,-1).map((item, index) => (
               <tr key={index} className={`hover:bg-gray-100 ${item.Description ? 'bg-orange-50' : ''}`}>
                 <td className="px-4 py-4 border">{index + 1}</td>
                 <td className="px-6 py-4 border">{item.ID}</td>

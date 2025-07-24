@@ -61,7 +61,6 @@ const Boards = () => {
                 <th className="px-6 py-3 text-left text-sm font-semibold border">Type</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold border">Project</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold border">Avatar</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold border">Link</th>
               </tr>
             </thead>
             <tbody className="text-sm text-black divide-y divide-gray-200">
@@ -78,16 +77,7 @@ const Boards = () => {
                       className="w-8 h-8 rounded-full border"
                     />
                   </td>
-                  <td className="px-6 py-4 border">
-                    <a
-                      href={board.self}
-                      className="text-blue-600 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View Board
-                    </a>
-                  </td>
+                  
                 </tr>
               ))}
             </tbody>

@@ -60,7 +60,7 @@ const DashBoradComponent = () => {
                 <th className="px-4 py-3 text-left text-sm font-semibold border">ID</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold border">Dashboard Name</th>
                 <th className="px-6 py-3 text-left text-sm font-semibold border">Owner</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold border">View</th>
+                {/* <th className="px-6 py-3 text-left text-sm font-semibold border">View</th> */}
               </tr>
             </thead>
             <tbody className="text-sm text-black divide-y divide-gray-200">
@@ -70,16 +70,7 @@ const DashBoradComponent = () => {
                   <td className="px-4 py-4 border">{dashboard.ID}</td>
                   <td className="px-6 py-4 border">{dashboard.Name}</td>
                   <td className="px-6 py-4 border">{dashboard.Owner || 'N/A'}</td>
-                  <td className="px-6 py-4 border">
-                    <a
-                      href={dashboard.ViewURL}
-                      className="text-indigo-600 underline"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Open Dashboard
-                    </a>
-                  </td>
+                
                 </tr>
               ))}
             </tbody>

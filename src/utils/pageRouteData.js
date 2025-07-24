@@ -120,7 +120,7 @@ export const pageRouteData = [
    {
       path : '/boards',
       component: Boards,
-      name : "Borads"
+      name : "Boards"
    },
    {
       path : '/dashboards',
